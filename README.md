@@ -1,7 +1,10 @@
 # 🛡️ TrustTrace: Radical Transparency for the Social Sector
-*"Moving from Blind Faith to Verified Impact."*
+** *"Moving from Blind Faith to Verified Impact."* **
 
-TrustTrace is a 2026-vision platform designed to eliminate the 'Black Box' of NGO donations. By implementing a **Live Financial Ledger, Geotagged Proof of Work*, and *AI-Driven Impact Reporting**, we turn every donation into a traceable journey.
+TrustTrace is a 2026-vision platform designed to eliminate the 'Black Box' of NGO donations. By implementing a **Live Financial Ledger, Geotagged Proof of Work, and AI-Driven Impact Reporting**, we turn every donation into a traceable journey.
+
+🌐 **Live Demo:**  
+https://trust-trace-delta.vercel.app/
 
 ## 🛑 The Problem: The "Trust Deficit"
 In India, donors often hesitate to contribute due to:
@@ -32,7 +35,7 @@ Browse verified NGOs filtered by Category (Education, Health, etc.) and Region. 
 - **Instant Tax Compliance**: Mock 80G receipt generation upon successful donation.
 - **Anonymity Mode**: Toggle to hide your name from the public donor list.
 
-### 📊 The Post-Donation Dashboard (The "Winner" Feature)
+### 📊 The Post-Donation Dashboard
 Once you donate, the site transforms for you:
 - **Your Impact Timeline**: Appears instantly to show where your specific rupees are in the NGO’s supply chain.
 - **Live Ledger Access**: View actual vendor invoices (e.g., Invoice from Reliance Digital for 10 Tablets).
@@ -47,7 +50,20 @@ Once you donate, the site transforms for you:
 2. Install: npm install
 3. Launch: npm run dev
 
-## 🔮 Future Roadmap (The Vision)
+## 🔍 Why TrustTrace?
+Transparency isn't just about sharing data; it's about Accountability. We built specific features to ensure that trust is earned, not just requested:
+
+- ⚖️ **Impact Comparison Tool**: Donors can benchmark NGOs side-by-side based on their Admin-to-Program spend ratio and Cost-per-Impact metrics. This encourages NGOs to be more efficient.
+- 📢 **Grievance Redressal Portal (GRM)**: A secure channel for donors or local beneficiaries to report discrepancies (e.g., "The school desks haven't arrived"). Every report is timestamped and directly impacts the NGO’s live Trust Score.
+- 📑 **Open Receipt Ledger**: Every ₹ spent is visible. Clicking a transaction shows the actual vendor invoice (e.g., a bill for 100 saplings). This prevents "Ghost Projects" and financial leaks.
+- 🌍 **Geotagged Proof of Work**: Field workers upload project photos that include hardcoded GPS Metadata and timestamps. You don't just see a photo of a well; you see exactly where and when it was built.
+- 🤝 **Beneficiary Feedback Loop**: We include direct testimonials from the people being helped, providing a "bottom-up" verification that the NGO’s claims match the ground reality.
+
+## 🔮 Future Roadmap
 - **Blockchain Immutability**: Migrating the mock ledger to a public L2 (Polygon) for 100% tamper-proof records.
 - **IoT Integration**: Using smart sensors (e.g., water flow sensors on a new well) to feed real-time impact data directly to the dashboard.
 - **Smart Milestone Funding**: Funds are only released to the NGO's wallet once a "Proof of Work" photo is verified by AI.
+
+## ⚠️ Hackathon Disclaimer
+TrustTrace is a **prototype built for demonstration purposes** as part of a hackathon.
+All NGOs, financial records, receipts, images, GPS data, and AI reports are **simulated or mock data** designed to showcase the concept and user flow.
