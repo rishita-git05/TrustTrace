@@ -1,5 +1,5 @@
 # 🛡️ TrustTrace: Radical Transparency for the Social Sector
-** *"Moving from Blind Faith to Verified Impact."* **
+**"Moving from Blind Faith to Verified Impact."**
 
 TrustTrace is a 2026-vision platform designed to eliminate the 'Black Box' of NGO donations. By implementing a **Live Financial Ledger, Geotagged Proof of Work, and AI-Driven Impact Reporting**, we turn every donation into a traceable journey.
 
