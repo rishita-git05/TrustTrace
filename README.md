@@ -4,7 +4,7 @@
 TrustTrace is a 2026-vision platform designed to eliminate the 'Black Box' of NGO donations. By implementing a **Live Financial Ledger, Geotagged Proof of Work, and AI-Driven Impact Reporting**, we turn every donation into a traceable journey.
 
 🌐 **Live Demo:**  
-https://trust-trace-delta.vercel.app/
+https://trust-trace-delta.vercel.app
 
 ## 🛑 The Problem: The "Trust Deficit"
 In India, donors often hesitate to contribute due to:
