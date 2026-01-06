@@ -43,7 +43,7 @@ Once you donate, the site transforms for you:
 -**Grievance Portal**: A built-in system for donors or locals to report discrepancies, directly affecting the NGO's Trust Score.
 
 ##🏗️ How to Run
-1. Clone: git clone https://github.com/rishita-git-05/trusttrace
+1. Clone: git clone https://github.com/rishita-git05/TrustTrace.git
 2. Install: npm install
 3. Launch: npm run dev
 
