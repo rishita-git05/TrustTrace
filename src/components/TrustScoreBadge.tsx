@@ -1,11 +1,24 @@
 import { motion } from 'framer-motion';
-import { Shield, CheckCircle } from 'lucide-react';
+import { Shield, CheckCircle, Info } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip';
 
 interface TrustScoreBadgeProps {
   score: number;
   size?: 'sm' | 'md' | 'lg';
   showLabel?: boolean;
 }
+
+const trustScoreExplanation = `Trust Score is calculated based on:
+• Financial Transparency (30%) - Audited reports & fund utilization
+• Program Efficiency (25%) - % spent on actual programs
+• Verification Status (20%) - 80G/CSR registration
+• Impact Metrics (15%) - Verified on-ground outcomes
+• Donor Feedback (10%) - User ratings & reviews`;
 
 export const TrustScoreBadge = ({ score, size = 'md', showLabel = true }: TrustScoreBadgeProps) => {
   const getScoreColor = (score: number) => {
@@ -46,10 +59,20 @@ export const TrustScoreBadge = ({ score, size = 'md', showLabel = true }: TrustS
         )}
       </div>
       {showLabel && (
-        <div className="flex items-center gap-1 text-xs text-muted-foreground">
-          <Shield className="w-3 h-3" />
-          <span>Trust Score</span>
-        </div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground cursor-help">
+                <Shield className="w-3 h-3" />
+                <span>Trust Score</span>
+                <Info className="w-3 h-3 text-muted-foreground/70" />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" className="max-w-xs bg-background border border-border shadow-lg z-50">
+              <p className="text-xs whitespace-pre-line text-foreground">{trustScoreExplanation}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )}
     </motion.div>
   );
