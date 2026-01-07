@@ -13,7 +13,7 @@ interface DonationSectionProps {
   ngoName: string;
   ngoVerificationId: string;
   projects: { id: string; name: string }[];
-  onDonate: (amount: number) => void;
+  onDonate: (amount: number, project: string, isAnonymous: boolean) => void;
 }
 
 const impactLevels = [
@@ -76,7 +76,8 @@ export const DonationSection = ({ ngoName, ngoVerificationId, projects, onDonate
     setIsProcessing(false);
     setShowSuccess(true);
     updateDonation(amount);
-    onDonate(amount);
+    const projectName = selectedProject === 'general' ? 'General Fund' : projects.find(p => p.id === selectedProject)?.name || 'General Fund';
+    onDonate(amount, projectName, isAnonymous);
   };
 
   const handleDownloadReceipt = () => {

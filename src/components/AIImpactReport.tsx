@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Bot, TrendingUp } from 'lucide-react';
+import { Sparkles, Bot, TrendingUp, Briefcase } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { quarterlyImpactData } from '@/data/mockData';
+import { Progress } from './ui/progress';
+
+interface Project {
+  id: string;
+  name: string;
+  fundAllocated: number;
+  fundUtilized: number;
+}
 
 interface AIImpactReportProps {
   ngoName: string;
@@ -12,6 +20,7 @@ interface AIImpactReportProps {
     fundraising: number;
   };
   impactScore?: number;
+  projects?: Project[];
 }
 
 const reportText = `This quarter, the organization demonstrated exceptional execution across all program areas. Key highlights include:
@@ -32,7 +41,9 @@ const CHART_COLORS = {
   fundraising: '#f43f5e', // Rose for Fundraising
 };
 
-export const AIImpactReport = ({ ngoName, fundUtilization, impactScore = 92 }: AIImpactReportProps) => {
+const PROJECT_COLORS = ['#14b8a6', '#10b981', '#059669', '#047857', '#065f46'];
+
+export const AIImpactReport = ({ ngoName, fundUtilization, impactScore = 92, projects = [] }: AIImpactReportProps) => {
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
 
@@ -159,6 +170,67 @@ export const AIImpactReport = ({ ngoName, fundUtilization, impactScore = 92 }: A
         </div>
       </motion.div>
 
+      {/* Project-wise Fund Utilization */}
+      {projects.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="bento-card"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center">
+              <Briefcase className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-display font-bold text-foreground">Project-wise Fund Utilization</h3>
+              <p className="text-xs text-muted-foreground">Detailed breakdown by project</p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {projects.map((project, index) => {
+              const utilizationPercent = Math.round((project.fundUtilized / project.fundAllocated) * 100);
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 + index * 0.05 }}
+                  className="p-3 bg-muted/30 rounded-lg"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-foreground">{project.name}</span>
+                    <span className="text-xs font-bold text-primary">{utilizationPercent}% utilized</span>
+                  </div>
+                  <Progress value={utilizationPercent} className="h-2 mb-2" />
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>Allocated: ₹{(project.fundAllocated / 100000).toFixed(1)}L</span>
+                    <span>Utilized: ₹{(project.fundUtilized / 100000).toFixed(1)}L</span>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Summary */}
+          <div className="mt-4 pt-4 border-t border-border">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Total Allocated:</span>
+              <span className="font-bold text-foreground">
+                ₹{(projects.reduce((sum, p) => sum + p.fundAllocated, 0) / 100000).toFixed(1)}L
+              </span>
+            </div>
+            <div className="flex justify-between text-sm mt-1">
+              <span className="text-muted-foreground">Total Utilized:</span>
+              <span className="font-bold text-primary">
+                ₹{(projects.reduce((sum, p) => sum + p.fundUtilized, 0) / 100000).toFixed(1)}L
+              </span>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       {/* Charts Row */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Fund Utilization Pie Chart */}
@@ -168,7 +240,7 @@ export const AIImpactReport = ({ ngoName, fundUtilization, impactScore = 92 }: A
           transition={{ delay: 0.2 }}
           className="bento-card"
         >
-          <h3 className="font-display font-bold text-foreground mb-4">Fund Utilization</h3>
+          <h3 className="font-display font-bold text-foreground mb-4">Overall Fund Utilization</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>

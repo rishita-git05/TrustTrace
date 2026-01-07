@@ -16,11 +16,19 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useBookmarks } from '@/contexts/BookmarkContext';
 
+interface DonationInfo {
+  amount: number;
+  project: string;
+  isAnonymous: boolean;
+}
+
 const NGODetail = () => {
   const { id } = useParams<{ id: string }>();
   const ngo = ngos.find((n) => n.id === id);
   const [totalRaised, setTotalRaised] = useState(ngo?.totalRaised || 0);
+  const [totalDonors, setTotalDonors] = useState(ngo?.totalDonors || 0);
   const [hasDonated, setHasDonated] = useState(false);
+  const [lastDonation, setLastDonation] = useState<DonationInfo | null>(null);
   const { isBookmarked, toggleBookmark } = useBookmarks();
 
   if (!ngo) {
@@ -37,9 +45,11 @@ const NGODetail = () => {
     );
   }
 
-  const handleDonate = (amount: number) => {
+  const handleDonate = (amount: number, project: string, isAnonymous: boolean) => {
     setTotalRaised((prev) => prev + amount);
+    setTotalDonors((prev) => prev + 1);
     setHasDonated(true);
+    setLastDonation({ amount, project, isAnonymous });
   };
 
   const bookmarked = isBookmarked(ngo.id);
@@ -176,9 +186,14 @@ const NGODetail = () => {
                 </div>
                 <div className="text-center p-4 bg-muted/30 rounded-xl">
                   <Users className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-                  <p className="font-display text-xl font-bold text-foreground">
-                    {ngo.totalDonors.toLocaleString('en-IN')}
-                  </p>
+                  <motion.p
+                    key={totalDonors}
+                    initial={{ scale: 1.2, color: 'hsl(var(--amber-500))' }}
+                    animate={{ scale: 1, color: 'inherit' }}
+                    className="font-display text-xl font-bold text-foreground"
+                  >
+                    {totalDonors.toLocaleString('en-IN')}
+                  </motion.p>
                   <p className="text-xs text-muted-foreground">Total Donors</p>
                 </div>
                 <div className="text-center p-4 bg-muted/30 rounded-xl">
@@ -230,7 +245,7 @@ const NGODetail = () => {
 
                 <div className="mt-6">
                   <TabsContent value="ledger">
-                    <LiveLedger />
+                    <LiveLedger newDonation={lastDonation} />
                   </TabsContent>
 
                   <TabsContent value="report">
@@ -238,6 +253,7 @@ const NGODetail = () => {
                       ngoName={ngo.name} 
                       fundUtilization={ngo.fundUtilization}
                       impactScore={ngo.trustScore - 5 + Math.floor(Math.random() * 10)}
+                      projects={ngo.projects}
                     />
                   </TabsContent>
 

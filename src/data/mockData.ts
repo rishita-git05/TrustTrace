@@ -22,6 +22,8 @@ export interface NGO {
   projects: {
     id: string;
     name: string;
+    fundAllocated: number;
+    fundUtilized: number;
   }[];
   fundUtilization: {
     programs: number;
@@ -103,10 +105,10 @@ export const ngos: NGO[] = [
       country: 'India',
     },
     projects: [
-      { id: 'proj-1', name: 'Urban Tree Plantation' },
-      { id: 'proj-2', name: 'Solar Village Initiative' },
-      { id: 'proj-3', name: 'River Cleanup Drive' },
-      { id: 'proj-4', name: 'Eco-Education Program' },
+      { id: 'proj-1', name: 'Urban Tree Plantation', fundAllocated: 800000, fundUtilized: 720000 },
+      { id: 'proj-2', name: 'Solar Village Initiative', fundAllocated: 650000, fundUtilized: 580000 },
+      { id: 'proj-3', name: 'River Cleanup Drive', fundAllocated: 450000, fundUtilized: 400000 },
+      { id: 'proj-4', name: 'Eco-Education Program', fundAllocated: 300000, fundUtilized: 275000 },
     ],
     fundUtilization: {
       programs: 78,
@@ -141,10 +143,10 @@ export const ngos: NGO[] = [
       country: 'India',
     },
     projects: [
-      { id: 'proj-5', name: 'Digital Literacy Program' },
-      { id: 'proj-6', name: 'Mid-Day Meals Initiative' },
-      { id: 'proj-7', name: 'Girl Child Education' },
-      { id: 'proj-8', name: 'Skill Development Workshops' },
+      { id: 'proj-5', name: 'Digital Literacy Program', fundAllocated: 500000, fundUtilized: 480000 },
+      { id: 'proj-6', name: 'Mid-Day Meals Initiative', fundAllocated: 750000, fundUtilized: 720000 },
+      { id: 'proj-7', name: 'Girl Child Education', fundAllocated: 600000, fundUtilized: 550000 },
+      { id: 'proj-8', name: 'Skill Development Workshops', fundAllocated: 350000, fundUtilized: 320000 },
     ],
     fundUtilization: {
       programs: 82,
@@ -179,10 +181,10 @@ export const ngos: NGO[] = [
       country: 'India',
     },
     projects: [
-      { id: 'proj-9', name: 'Village Well Construction' },
-      { id: 'proj-10', name: 'RO Plant Installation' },
-      { id: 'proj-11', name: 'Rainwater Harvesting' },
-      { id: 'proj-12', name: 'Water Quality Testing' },
+      { id: 'proj-9', name: 'Village Well Construction', fundAllocated: 1200000, fundUtilized: 1100000 },
+      { id: 'proj-10', name: 'RO Plant Installation', fundAllocated: 900000, fundUtilized: 850000 },
+      { id: 'proj-11', name: 'Rainwater Harvesting', fundAllocated: 600000, fundUtilized: 580000 },
+      { id: 'proj-12', name: 'Water Quality Testing', fundAllocated: 300000, fundUtilized: 290000 },
     ],
     fundUtilization: {
       programs: 85,
@@ -217,10 +219,10 @@ export const ngos: NGO[] = [
       country: 'India',
     },
     projects: [
-      { id: 'proj-13', name: 'Tiger Conservation' },
-      { id: 'proj-14', name: 'Anti-Poaching Patrols' },
-      { id: 'proj-15', name: 'Wildlife Corridor Restoration' },
-      { id: 'proj-16', name: 'Community Awareness Camps' },
+      { id: 'proj-13', name: 'Tiger Conservation', fundAllocated: 800000, fundUtilized: 700000 },
+      { id: 'proj-14', name: 'Anti-Poaching Patrols', fundAllocated: 600000, fundUtilized: 580000 },
+      { id: 'proj-15', name: 'Wildlife Corridor Restoration', fundAllocated: 500000, fundUtilized: 450000 },
+      { id: 'proj-16', name: 'Community Awareness Camps', fundAllocated: 250000, fundUtilized: 230000 },
     ],
     fundUtilization: {
       programs: 76,
@@ -255,10 +257,10 @@ export const ngos: NGO[] = [
       country: 'India',
     },
     projects: [
-      { id: 'proj-17', name: 'Mobile Health Clinics' },
-      { id: 'proj-18', name: 'Maternal Care Program' },
-      { id: 'proj-19', name: 'Vaccination Drives' },
-      { id: 'proj-20', name: 'Mental Health Awareness' },
+      { id: 'proj-17', name: 'Mobile Health Clinics', fundAllocated: 1500000, fundUtilized: 1450000 },
+      { id: 'proj-18', name: 'Maternal Care Program', fundAllocated: 1000000, fundUtilized: 980000 },
+      { id: 'proj-19', name: 'Vaccination Drives', fundAllocated: 800000, fundUtilized: 790000 },
+      { id: 'proj-20', name: 'Mental Health Awareness', fundAllocated: 500000, fundUtilized: 480000 },
     ],
     fundUtilization: {
       programs: 88,
@@ -293,10 +295,10 @@ export const ngos: NGO[] = [
       country: 'India',
     },
     projects: [
-      { id: 'proj-21', name: 'Solar Home Systems' },
-      { id: 'proj-22', name: 'Solar Street Lighting' },
-      { id: 'proj-23', name: 'Solar Water Pumps' },
-      { id: 'proj-24', name: 'Green Energy Education' },
+      { id: 'proj-21', name: 'Solar Home Systems', fundAllocated: 400000, fundUtilized: 380000 },
+      { id: 'proj-22', name: 'Solar Street Lighting', fundAllocated: 350000, fundUtilized: 320000 },
+      { id: 'proj-23', name: 'Solar Water Pumps', fundAllocated: 300000, fundUtilized: 280000 },
+      { id: 'proj-24', name: 'Green Energy Education', fundAllocated: 200000, fundUtilized: 185000 },
     ],
     fundUtilization: {
       programs: 80,

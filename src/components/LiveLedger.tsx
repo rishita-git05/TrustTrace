@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, ExternalLink } from 'lucide-react';
-import { transactions } from '@/data/mockData';
+import { transactions as initialTransactions, Transaction } from '@/data/mockData';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import {
@@ -18,7 +19,7 @@ const typeColors: Record<string, string> = {
 };
 
 interface ReceiptModalProps {
-  transaction: typeof transactions[0];
+  transaction: Transaction;
 }
 
 const ReceiptModal = ({ transaction }: ReceiptModalProps) => {
@@ -80,7 +81,37 @@ const ReceiptModal = ({ transaction }: ReceiptModalProps) => {
   );
 };
 
-export const LiveLedger = () => {
+interface DonationInfo {
+  amount: number;
+  project: string;
+  isAnonymous: boolean;
+}
+
+interface LiveLedgerProps {
+  newDonation?: DonationInfo | null;
+}
+
+export const LiveLedger = ({ newDonation }: LiveLedgerProps) => {
+  const [ledgerTransactions, setLedgerTransactions] = useState<Transaction[]>(initialTransactions);
+  const [processedDonation, setProcessedDonation] = useState<DonationInfo | null>(null);
+
+  // Add new donation to ledger when it changes
+  if (newDonation && newDonation !== processedDonation) {
+    const newTransaction: Transaction = {
+      id: `tx-new-${Date.now()}`,
+      date: new Date().toISOString().split('T')[0],
+      item: newDonation.project === 'General Fund' 
+        ? `${newDonation.isAnonymous ? 'Anonymous' : 'User'} Donation - General Fund`
+        : `${newDonation.isAnonymous ? 'Anonymous' : 'User'} Donation - ${newDonation.project}`,
+      amount: newDonation.amount,
+      type: 'Program',
+      receiptId: `RCP-${new Date().getFullYear()}-${Math.floor(Math.random() * 9000) + 1000}`,
+      ngoId: 'ngo-1',
+    };
+    setLedgerTransactions(prev => [newTransaction, ...prev.slice(0, 9)]);
+    setProcessedDonation(newDonation);
+  }
+
   return (
     <div className="bento-card">
       <div className="flex items-center justify-between mb-4">
@@ -88,7 +119,9 @@ export const LiveLedger = () => {
           <FileText className="w-5 h-5 text-primary" />
           Live Ledger
         </h3>
-        <span className="text-xs text-muted-foreground">Last 10 transactions</span>
+        <span className="text-xs text-muted-foreground">
+          {ledgerTransactions.length} transactions
+        </span>
       </div>
 
       <div className="overflow-x-auto">
@@ -103,33 +136,36 @@ export const LiveLedger = () => {
             </tr>
           </thead>
           <tbody>
-            {transactions.map((tx, index) => (
-              <motion.tr
-                key={tx.id}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
-                className="border-b border-border/50 hover:bg-muted/30 transition-colors"
-              >
-                <td className="py-3 pr-4 text-sm text-muted-foreground whitespace-nowrap">
-                  {tx.date}
-                </td>
-                <td className="py-3 pr-4 text-sm font-medium text-foreground max-w-[200px] truncate">
-                  {tx.item}
-                </td>
-                <td className="py-3 pr-4 text-sm font-bold text-foreground text-right whitespace-nowrap">
-                  ₹{tx.amount.toLocaleString('en-IN')}
-                </td>
-                <td className="py-3 pr-4 text-center">
-                  <Badge className={`${typeColors[tx.type]} text-xs`}>
-                    {tx.type}
-                  </Badge>
-                </td>
-                <td className="py-3 text-right">
-                  <ReceiptModal transaction={tx} />
-                </td>
-              </motion.tr>
-            ))}
+            <AnimatePresence mode="popLayout">
+              {ledgerTransactions.slice(0, 10).map((tx, index) => (
+                <motion.tr
+                  key={tx.id}
+                  initial={{ opacity: 0, x: -20, backgroundColor: 'hsl(var(--primary) / 0.1)' }}
+                  animate={{ opacity: 1, x: 0, backgroundColor: 'transparent' }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="border-b border-border/50 hover:bg-muted/30 transition-colors"
+                >
+                  <td className="py-3 pr-4 text-sm text-muted-foreground whitespace-nowrap">
+                    {tx.date}
+                  </td>
+                  <td className="py-3 pr-4 text-sm font-medium text-foreground max-w-[200px] truncate">
+                    {tx.item}
+                  </td>
+                  <td className="py-3 pr-4 text-sm font-bold text-foreground text-right whitespace-nowrap">
+                    ₹{tx.amount.toLocaleString('en-IN')}
+                  </td>
+                  <td className="py-3 pr-4 text-center">
+                    <Badge className={`${typeColors[tx.type]} text-xs`}>
+                      {tx.type}
+                    </Badge>
+                  </td>
+                  <td className="py-3 text-right">
+                    <ReceiptModal transaction={tx} />
+                  </td>
+                </motion.tr>
+              ))}
+            </AnimatePresence>
           </tbody>
         </table>
       </div>
